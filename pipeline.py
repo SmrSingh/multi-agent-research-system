@@ -1,5 +1,10 @@
-from agents import build_reader_agent , build_search_agent , writer_chain , critic_chain
+from agents import build_search_agent, writer_chain, critic_chain
+from tools import scrape_url
+import re
 
+def extract_urls(text):
+    pattern = r'https?://[^\s)]+'
+    return re.findall(pattern, text)
 def run_research_pipeline(topic : str) -> dict:
 
     state = {}
@@ -12,16 +17,36 @@ def run_research_pipeline(topic : str) -> dict:
     "messages": [(
         "user",
         f"""
-    You MUST use the web_search tool.
+You MUST use the web_search tool.
 
-    Search for:{topic}
+Search for:
 
-    Do not answer from your own knowledge.
-    Use the web_search tool first and return its results.
-    """
-        )]
-    })
+{topic}
+
+IMPORTANT:
+
+Do NOT summarize.
+
+Return the tool output exactly as received.
+
+Every search result must include:
+
+Title:
+URL:
+Snippet:
+
+Do not rewrite.
+Do not explain.
+Do not remove URLs.
+"""
+    )]
+})
     state["search_results"] = search_result['messages'][-1].content
+    state["urls"] = extract_urls(str(state["search_results"]))[:3]
+
+    print("\nTop 3 URLs:")
+    for i, url in enumerate(state["urls"], start=1):
+        print(f"{i}. {url}")
     print("\n search result ",state['search_results'])
     
     #step 2 - reader agent
@@ -29,16 +54,30 @@ def run_research_pipeline(topic : str) -> dict:
     print("step 2 - Reader agent is scraping top resources ...")
     print("="*50)
 
-    reader_agent = build_reader_agent()
-    reader_result = reader_agent.invoke({
-        "messages": [("user",
-            f"Based on the following search results about '{topic}', "
-            f"pick the most relevant URL and scrape it for deeper content.\n\n"
-            f"Search Results:\n{state['search_results'][:800]}"
-        )]
-    })
+    scraped_contents = []
 
-    state['scraped_content'] = reader_result['messages'][-1].content
+    for i, url in enumerate(state["urls"], start=1):
+        print(f"\nScraping ({i}/3): {url}")
+
+        try:
+            content = scrape_url.invoke(url)
+
+            if content and "Could not scrape" not in content:
+                scraped_contents.append(content)
+            else:
+                print(f"Skipping {url}")
+
+        except Exception as e:
+            print(f"Error scraping {url}")
+            print(e)
+
+    state["scraped_content"] = "\n\n".join(scraped_contents)
+
+    print("\nScraped Content:\n")
+    print(state["scraped_content"][:2000])
+
+    print("\nScraped Content:\n")
+    print(state["scraped_content"][:2000])
 
     print("\nscraped content: \n", state['scraped_content'])
 

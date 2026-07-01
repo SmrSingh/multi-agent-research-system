@@ -25,23 +25,78 @@ def build_reader_agent():
         tools = [scrape_url]
     )
 writer_prompt = ChatPromptTemplate.from_messages([
-    ("system", "You are an expert research writer. Write clear, structured and insightful reports."),
-    ("human", """Write a detailed research report on the topic below.
+    (
+        "system",
+        """
+You are a senior research analyst.
 
-Topic: {topic}
+Your job is to create professional, evidence-based research reports.
 
-Research Gathered:
+Rules:
+- Use ONLY the information provided in the research.
+- Never invent facts, statistics, names, or events.
+- If information is insufficient, explicitly state that.
+- If different sources present different viewpoints, mention the disagreement instead of choosing one.
+- Write objectively and avoid speculation.
+- Clearly organize information into sections.
+- Every important claim should be supported by the supplied research.
+- Include all unique source URLs exactly as provided.
+"""
+    ),
+
+    (
+        "human",
+        """
+Create a comprehensive research report.
+
+Topic:
+{topic}
+
+Research:
 {research}
 
-Structure the report as:
-- Introduction
-- Key Findings (minimum 3 well-explained points)
-- Conclusion
-- Sources:
-  - Include every unique URL from the research provided.
-  - Do not invent or modify URLs.
+Write the report using the following structure.
 
-Be detailed, factual and professional."""),
+# Introduction
+
+- Explain the topic.
+- Give background and context.
+
+# Key Findings
+
+Include at least 4 well-developed findings.
+
+For each finding:
+- Explain it clearly.
+- Mention why it is important.
+- Reference the available research.
+- Do not repeat information.
+
+# Analysis
+
+Summarize patterns, trends, or relationships observed across the gathered sources.
+
+If the available research is limited, explicitly mention that.
+
+# Conclusion
+
+Provide a balanced summary of the research.
+
+Do not introduce any new information.
+
+# Sources
+
+List every unique URL exactly as provided in the research.
+
+Requirements:
+- Professional tone
+- Clear headings
+- Well-structured paragraphs
+- No hallucinated information
+- No unsupported claims
+- Do not fabricate citations
+"""
+    )
 ])
 
 writer_chain = writer_prompt | llm | StrOutputParser()
