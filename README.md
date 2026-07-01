@@ -1,211 +1,209 @@
 # AI Multi-Agent Research Assistant
 
-A modular AI-powered research assistant built using **LangChain**, **Google Gemini**, **Tavily Search API**, and **BeautifulSoup**. The system employs multiple specialized agents to search the web, extract relevant information, generate structured research reports, and evaluate the quality of the generated content.
+An AI-powered research assistant that autonomously searches the web, scrapes relevant sources, generates a structured research report, and critiques its own output using a multi-agent workflow built with LangChain and Google Gemini.
+
+## Live Demo
+
+**Live Application:** https://multi-agent-research-system-8l0p.onrender.com
+
+## GitHub Repository
+
+https://github.com/SmrSingh/multi-agent-research-system
 
 ---
 
 ## Features
 
-- Multi-agent architecture using LangChain
-- Web search powered by Tavily Search API
+- Multi-agent research workflow using LangChain
+- Web search using Tavily Search API
+- Automatic extraction of top search results
 - Web scraping with BeautifulSoup
 - AI-generated research reports
-- Automated report evaluation using a Critic Agent
-- LCEL (LangChain Expression Language) pipelines
-- Modular and extensible codebase
+- AI-powered report review and feedback
+- Interactive Streamlit interface
+- Download generated reports
+- Deployed on Render
 
 ---
 
-## Architecture
+## Workflow
 
-```
+```text
                 User Query
                      │
                      ▼
-             Search Agent
-                     │
-             Tavily Search Tool
+             Search Agent (Gemini)
                      │
                      ▼
-              Search Results
+             Tavily Web Search
                      │
                      ▼
-             Reader Agent
-                     │
-         BeautifulSoup Scraper
+          Extract Top 3 Relevant URLs
                      │
                      ▼
-            Extracted Web Content
+      Scrape Webpages (BeautifulSoup)
                      │
                      ▼
-              Writer Chain
-                     │
-             Research Report
+        Combine Research Information
                      │
                      ▼
-              Critic Chain
+          Writer Agent (Gemini)
                      │
                      ▼
-             Final Evaluation
+      Generate Research Report
+                     │
+                     ▼
+          Critic Agent (Gemini)
+                     │
+                     ▼
+      Report + Feedback + Sources
 ```
 
 ---
 
 ## Tech Stack
 
-- Python
-- LangChain
-- Google Gemini
-- Tavily Search API
-- BeautifulSoup
-- Requests
-- LCEL (LangChain Expression Language)
-- Python-dotenv
+| Category | Technologies |
+|----------|--------------|
+| Language | Python |
+| LLM | Google Gemini 2.5 Flash |
+| Framework | LangChain |
+| Search API | Tavily Search |
+| Web Scraping | Requests, BeautifulSoup |
+| Frontend | Streamlit |
+| Deployment | Render |
+| Environment | Python Dotenv |
 
 ---
 
 ## Project Structure
 
-```
+```text
 multi-agent-research-system/
 │
-├── agents.py
-├── pipeline.py
-├── tools.py
+├── app.py                  # Streamlit frontend
+├── pipeline.py             # Multi-agent research pipeline
+├── agents.py               # Search, Writer and Critic agents
+├── tools.py                # Search and scraping tools
 ├── requirements.txt
+├── README.md
 ├── .gitignore
-├── .env
-└── README.md
+└── .env
 ```
 
 ---
 
 ## Installation
 
-### Clone the repository
+Clone the repository
 
 ```bash
 git clone https://github.com/SmrSingh/multi-agent-research-system.git
+
 cd multi-agent-research-system
 ```
 
-### Create a virtual environment
+Create a virtual environment
 
 ```bash
 python -m venv .venv
 ```
 
-Activate the environment:
+Activate the virtual environment
 
-**Windows**
+### Windows
 
 ```bash
 .venv\Scripts\activate
 ```
 
-**Linux / macOS**
+### macOS/Linux
 
 ```bash
 source .venv/bin/activate
 ```
 
-### Install dependencies
+Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Configure environment variables
+---
+
+## Environment Variables
 
 Create a `.env` file in the project root.
 
 ```env
-GEMINI_API_KEY=your_gemini_api_key
-TAVILY_API_KEY=your_tavily_api_key
+GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+TAVILY_API_KEY=YOUR_TAVILY_API_KEY
 ```
 
-### Run the application
+---
+
+## Running the Application
 
 ```bash
-python pipeline.py
+streamlit run app.py
+```
+
+The application will be available at:
+
+```
+http://localhost:8501
 ```
 
 ---
 
-## Workflow
+## Example Workflow
 
-### Search Agent
-
-- Searches the web using Tavily
-- Retrieves relevant URLs and summaries
-
-### Reader Agent
-
-- Selects a relevant webpage
-- Extracts clean text using BeautifulSoup
-
-### Writer Chain
-
-Generates a structured research report including:
-
-- Introduction
-- Key Findings
-- Conclusion
-- Sources
-
-### Critic Chain
-
-Evaluates the generated report by providing:
-
-- Overall score
-- Strengths
-- Areas for improvement
-- Final verdict
+1. Enter a research topic.
+2. The Search Agent searches the web using Tavily.
+3. The top search results are extracted.
+4. Relevant webpages are scraped.
+5. The Writer Agent generates a structured research report.
+6. The Critic Agent reviews the report and provides feedback.
+7. The report, feedback, and source links are displayed in the Streamlit interface.
 
 ---
 
-## Sample Output
+## Screenshots
 
-```
-Enter a research topic:
 
-Artificial Intelligence
+### Home Page
+<img width="1917" height="886" alt="image" src="https://github.com/user-attachments/assets/3a874765-7e54-43b0-abee-229a8ea62c90" />
 
-Step 1 - Search Agent
-Searching latest information...
 
-Step 2 - Reader Agent
-Scraping relevant webpage...
+### Generated Report
 
-Step 3 - Writer Chain
-Generating research report...
+<img width="1902" height="893" alt="image" src="https://github.com/user-attachments/assets/dac89d04-268b-400d-a85e-f4ff696d00fc" />
 
-Step 4 - Critic Chain
-Evaluating report...
 
-Research completed successfully.
-```
+### Critic Feedback
+
+<img width="1696" height="557" alt="image" src="https://github.com/user-attachments/assets/1ffb1830-68b8-4090-819e-a7d07879e253" />
+
 
 ---
 
-## Learning Outcomes
+## Skills Demonstrated
 
-This project demonstrates practical implementation of:
-
-- Multi-Agent Systems
+- Multi-Agent AI Systems
 - LangChain Agents
-- Tool Calling
-- LCEL Pipelines
 - Prompt Engineering
-- LLM Integration
+- Tool Calling
+- Google Gemini API Integration
+- Web Search Integration
 - Web Scraping
-- API Integration
-- Modular Software Design
+- AI Report Generation
+- Streamlit Development
+- Deployment on Render
 
----
 
-## Author
 
-**Smriti Singh**
+
 
 GitHub: https://github.com/SmrSingh
+
+LinkedIn: *(Add your LinkedIn profile here)*
