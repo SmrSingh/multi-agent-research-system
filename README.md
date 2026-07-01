@@ -210,4 +210,4 @@ http://localhost:8501
 
 GitHub: https://github.com/SmrSingh
 
-LinkedIn: *(Add your LinkedIn profile here)*
+
