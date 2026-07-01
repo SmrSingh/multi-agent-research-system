@@ -172,15 +172,19 @@ http://localhost:8501
 
 
 ### Home Page
+
+
 <img width="1917" height="886" alt="image" src="https://github.com/user-attachments/assets/3a874765-7e54-43b0-abee-229a8ea62c90" />
 
 
 ### Generated Report
 
+
 <img width="1902" height="893" alt="image" src="https://github.com/user-attachments/assets/dac89d04-268b-400d-a85e-f4ff696d00fc" />
 
 
 ### Critic Feedback
+
 
 <img width="1696" height="557" alt="image" src="https://github.com/user-attachments/assets/1ffb1830-68b8-4090-819e-a7d07879e253" />
 
