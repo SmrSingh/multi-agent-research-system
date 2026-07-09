@@ -10,6 +10,10 @@ An AI-powered research assistant that autonomously searches the web, scrapes rel
 
 https://github.com/SmrSingh/multi-agent-research-system
 
+## Demo Video
+
+https://www.loom.com/share/96b11829ed5641588c6fd0da8c76c4d5
+
 ---
 
 ## Features
