@@ -6,9 +6,7 @@ An AI-powered research assistant that autonomously searches the web, scrapes rel
 
 **Live Application:** https://multi-agent-research-system-8l0p.onrender.com
 
-## GitHub Repository
 
-https://github.com/SmrSingh/multi-agent-research-system
 
 ## Demo Video
 
@@ -33,34 +31,18 @@ https://www.loom.com/share/96b11829ed5641588c6fd0da8c76c4d5
 ## Workflow
 
 ```text
-                User Query
-                     │
-                     ▼
-             Search Agent (Gemini)
-                     │
-                     ▼
-             Tavily Web Search
-                     │
-                     ▼
-          Extract Top 3 Relevant URLs
-                     │
-                     ▼
-      Scrape Webpages (BeautifulSoup)
-                     │
-                     ▼
-        Combine Research Information
-                     │
-                     ▼
-          Writer Agent (Gemini)
-                     │
-                     ▼
-      Generate Research Report
-                     │
-                     ▼
-          Critic Agent (Gemini)
-                     │
-                     ▼
-      Report + Feedback + Sources
+             ```mermaid
+flowchart TD
+    A[User Query] --> B[Search Agent - Gemini]
+    B --> C[Tavily Web Search]
+    C --> D[Extract Top 3 Relevant URLs]
+    D --> E[Scrape Webpages - BeautifulSoup]
+    E --> F[Combine Research Information]
+    F --> G[Writer Agent - Gemini]
+    G --> H[Generate Research Report]
+    H --> I[Critic Agent - Gemini]
+    I --> J[Report + Feedback + Sources]
+```
 ```
 
 ---
