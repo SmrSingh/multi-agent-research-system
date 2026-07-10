@@ -30,8 +30,7 @@ https://www.loom.com/share/96b11829ed5641588c6fd0da8c76c4d5
 
 ## Workflow
 
-```text
-             ```mermaid
+ ```mermaid
 flowchart TD
     A[User Query] --> B[Search Agent - Gemini]
     B --> C[Tavily Web Search]
@@ -43,9 +42,7 @@ flowchart TD
     H --> I[Critic Agent - Gemini]
     I --> J[Report + Feedback + Sources]
 ```
-```
 
----
 
 ## Tech Stack
 
